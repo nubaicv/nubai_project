@@ -1,0 +1,12 @@
+{# templates/404.html.twig #}
+
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Error {{ status_code }}
+{% endblock %}
+
+{% block body %}
+    <h1 class="status_code">Error {{ status_code }}</h1>
+    <p>{{ status_text }}</p>
+{% endblock %}
