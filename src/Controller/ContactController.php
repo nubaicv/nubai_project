@@ -12,7 +12,7 @@ class ContactController extends AbstractController {
     public function index() :Response {
         
         return $this->render('contact.html.twig', [
-            'title' => 'Contacs page | Nubai',
+            'title' => 'Contact page | Nubai',
         ]);
     }
 }
