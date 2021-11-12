@@ -11,7 +11,7 @@ class HomeController extends AbstractController {
     ##[Route(path: [ 'en' => '/en', 'pt' => '/pt' ], name: 'home_page')]
 
     #[Route('/', name: 'home_page')]
-    public function index($path = 'pt') :Response {
+    public function index() :Response {
         
         return $this->render('home_page.html.twig', [
             'title' => 'Homepage | Nubai',
