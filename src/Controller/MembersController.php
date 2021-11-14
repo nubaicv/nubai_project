@@ -7,18 +7,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\RegisterType;
+use App\Entity\Customers;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MembersController extends AbstractController
 {
     #[Route('/sign_up', name: 'sign_up')]
-    public function signup(Request $request): Response
+    public function signup(Request $request, UserPasswordHasherInterface $password_hasher): Response
     {
         
-        $form = $this->createForm(RegisterType::class);
+        $customer = new Customers();
         
+        $form = $this->createForm(RegisterType::class, $customer);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            $customer->setCreated(new \DateTime);
+            $customer->setUpdated(new \DateTime);
+            $customer->setPassword($password_hasher->hashPassword($customer, $form['password']->getData()));
+            $customer->setRoles(['ROLE_USER']);
+            $customer->setEmailVerificationCode('generate some random code here');
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($customer);
+            $em->flush();
+            
+            $this->addFlash('success', 'Parabens! O registo foi efetuado com sucesso.');
             
             //$customer = $form->getData();
             
@@ -32,11 +47,4 @@ class MembersController extends AbstractController
         ]);
     }
     
-    #[Route('/login', name: 'sign_in')]
-    public function signin(): Response
-    {
-        return $this->render('sign_in.html.twig', [
-            'title' => 'Sign In | Nubai',
-        ]);
-    }
 }

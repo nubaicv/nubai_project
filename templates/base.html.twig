@@ -15,6 +15,9 @@
         {% endblock %}
     </head>
     <body>
+        {% for message in app.flashes('success') %}
+            <div>{{ message }}</div>
+        {% endfor %}
         <nav class="main-nav">
             <ul>
                 <li><a href="{{ path('home_page') }}">Home</a></li>
