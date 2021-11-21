@@ -20,35 +20,52 @@ class ProductsController extends AbstractController
     public function index(ValidatorInterface $validator, ProductsRepository $pr): Response
     {
         
-        $em = $this->getDoctrine()->getManager();
+//        $em = $this->getDoctrine()->getManager();
+//        
+//        $family = new Families();
+//        $family->setName('Equipamentos informaticos');
+//        $em->persist($family);
+//        
+//        $sub_family = new SubFamilies();
+//        $sub_family->setName('Acessorios');
+//        $sub_family->setFamily($family);
+//        $em->persist($sub_family);
+//        
+//        $product = new Products();
+//        $product->setCode('PCODE002');
+//        $product->setName('Labtop HP Inspiron');
+//        $product->setDescription('The best laptop in the market');
+//        $product->setPrice('45000');
+//        $product->setSubfamily($sub_family);
+//        
+//        $errors = $validator->validate($product);
+//        if (count($errors) > 0) {
+//            
+//            return new Response((string) $errors, 400);
+//        }
+//        
+//        $em->persist($product);
+//        $em->flush();
         
-        $family = new Families();
-        $family->setName('Equipamentos informaticos');
-        $em->persist($family);
+        return $this->render('product_list.html.twig', [
+            'controller_name' => 'ProductsController',
+            'title' => 'Lista dos produtos',
+        ]);
+    }
+    
+    #[Route('/product/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
+    public function product_show(int $id, ProductsRepository $pr) {
         
-        $sub_family = new SubFamilies();
-        $sub_family->setName('Acessorios');
-        $sub_family->setFamily($family);
-        $em->persist($sub_family);
+        $product = $pr->find($id);
         
-        $product = new Products();
-        $product->setCode('PCODE002');
-        $product->setName('Labtop HP Inspiron');
-        $product->setDescription('The best laptop in the market');
-        $product->setPrice('45000');
-        $product->setSubfamily($sub_family);
-        
-        $errors = $validator->validate($product);
-        if (count($errors) > 0) {
-            
-            return new Response((string) $errors, 400);
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
         }
         
-        $em->persist($product);
-        $em->flush();
-        
-        return $this->render('products/index.html.twig', [
-            'controller_name' => 'ProductsController',
+        return $this->render('product_show.html.twig', [
+            'product' => $product,
         ]);
     }
 }

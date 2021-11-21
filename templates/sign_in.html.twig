@@ -7,9 +7,7 @@
 {% endblock %}
 
 {% block body %}
-    {% include '_includes/header.html.twig' %}
     <div class="center">
-        {% include '_includes/aside.html.twig' %}
         <main>
             {% for message in app.flashes('success') %}
                 <div>{{ message }}</div>
@@ -52,5 +50,4 @@
             </form>
         </main>
     </div>
-    {% include '_includes/footer.html.twig' %}
 {% endblock %}

@@ -15,8 +15,20 @@ header {
     display: flex;
 }
 
-nav.main-nav ul {
+ul {
     list-style-type: none;
+}
+
+ul li {
+    display: block;
+    padding: 12px 0px;
+}
+
+hr {
+    color: #eee;
+}
+
+nav.main-nav ul {
     display: flex;
 }
 

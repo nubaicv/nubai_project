@@ -1,8 +1,8 @@
 {# templates/_includes/aside.html.twig #}
 
 <aside>
-    <div>aside</div>
+    <div>Aside</div>
     {% if app.user == true %}
-        <p>Utilizador: {{ app.user.username }}</p>
+        <p><strong>Logged in as:</strong> {{ app.user.username }}</p>
     {% endif %}
 </aside>
