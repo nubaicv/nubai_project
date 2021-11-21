@@ -43,7 +43,7 @@ class Products
     private $description;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      */
     private $price;
 
@@ -53,14 +53,18 @@ class Products
     private $availability;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubFamilies::class, inversedBy="products")
+     * @ORM\ManyToOne(targetEntity=SubFamilies::class, inversedBy="products", cascade={"persist"})
      */
     private $subfamily;
     
     
-    
-    
-    //GETTERS AND SETTERS
+    // Constructor function
+    function __construct() {
+        
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
+        $this->availability = true;
+    }
 
     public function getId(): ?int
     {
@@ -127,12 +131,12 @@ class Products
         return $this;
     }
 
-    public function getPrice(): ?float
+    public function getPrice(): ?int
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(int $price): self
     {
         $this->price = $price;
 

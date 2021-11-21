@@ -16,6 +16,10 @@ class MembersController extends AbstractController
     public function signup(Request $request, UserPasswordHasherInterface $password_hasher): Response
     {
         
+        if ($this->getUser()) {
+             return $this->redirectToRoute('home_page');
+         }
+        
         $customer = new Customers();
         
         $form = $this->createForm(RegisterType::class, $customer);
@@ -23,17 +27,13 @@ class MembersController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $customer->setCreated(new \DateTime);
-            $customer->setUpdated(new \DateTime);
             $customer->setPassword($password_hasher->hashPassword($customer, $form['password']->getData()));
-            $customer->setRoles(['ROLE_USER']);
-            $customer->setEmailVerificationCode('generate some random code here');
             
             $em = $this->getDoctrine()->getManager();
             $em->persist($customer);
             $em->flush();
             
-            $this->addFlash('success', 'Parabens! O registo foi efetuado com sucesso.');
+            $this->addFlash('success', Customers::REGISTERED);
             
             //$customer = $form->getData();
             

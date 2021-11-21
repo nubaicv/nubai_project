@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
@@ -15,17 +16,6 @@
         {% endblock %}
     </head>
     <body>
-        {% for message in app.flashes('success') %}
-            <div>{{ message }}</div>
-        {% endfor %}
-        <nav class="main-nav">
-            <ul>
-                <li><a href="{{ path('home_page') }}">Home</a></li>
-                <li><a href="{{ path('contact_page') }}">Contact</a></li>
-                <li><a href="{{ path('sign_in') }}">Sign in</a></li>
-                <li><a href="{{ path('sign_up') }}">Sign up</a></li>
-            </ul>
-        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -13,6 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Customers implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    
+    const REGISTERED = 'Parabens! O registo foi efetuado com sucesso.';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -65,6 +68,16 @@ class Customers implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $email_verification_code;
+    
+    
+    // Constructor function
+    function __construct() {
+        
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
+        $this->roles = ['ROLE_USER'];
+        $this->email_verification_code = 'generate some random code here';
+    }
 
     public function getId(): ?int
     {
@@ -101,16 +114,9 @@ class Customers implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getRoles(): ?array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -120,10 +126,7 @@ class Customers implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

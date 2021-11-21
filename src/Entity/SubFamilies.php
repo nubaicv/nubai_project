@@ -49,15 +49,15 @@ class SubFamilies
      */
     private $products;
 
+    
+    // Constructor function
     public function __construct()
     {
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
         $this->products = new ArrayCollection();
     }
-    
-    
-    
-    // GETTERS AND SETTERS
-    
+
     public function getId(): ?int
     {
         return $this->id;

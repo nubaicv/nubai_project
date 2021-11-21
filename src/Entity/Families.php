@@ -44,17 +44,20 @@ class Families
      */
     private $subfamilies;
 
+    
+    // Constructor function
     public function __construct()
     {
+        $this->created = new \DateTime();
+        $this->updated = new \DateTime();
         $this->subfamilies = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
-    
+
     public function getCreated(): ?\DateTimeInterface
     {
         return $this->created;

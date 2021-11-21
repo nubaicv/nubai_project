@@ -7,5 +7,15 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Contact page</h1>
+    {% include '_includes/header.html.twig' %}
+    <div class="center">
+        {% include '_includes/aside.html.twig' %}
+        <main>
+            {% for message in app.flashes('success') %}
+                <div>{{ message }}</div>
+            {% endfor %}
+            <h1>contact page</h1>
+        </main>
+    </div>
+    {% include '_includes/footer.html.twig' %}
 {% endblock %}

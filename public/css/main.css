@@ -9,15 +9,41 @@
     box-sizing: border-box;
 }
 
-body {
-    padding: 2em;
+header {
+    background-color: #ccc;
+    padding: 12px;
+    display: flex;
 }
 
-.status_code {
-    color: red;
-}
-
-.main-nav ul {
-    padding: 1em 0;
+nav.main-nav ul {
     list-style-type: none;
+    display: flex;
+}
+
+nav.main-nav ul li {
+    padding: 10px 12px;
+}
+
+nav.main-nav ul li a {
+    padding: 12px;
+}
+
+a.logo {
+    background-color: #000;
+    color: #eee;
+    padding: 12px;
+}
+
+aside {
+    background-color: #eee;
+    padding: 12px;
+}
+
+main {
+    padding: 12px;
+}
+
+footer {
+    background-color: #ccc;
+    padding: 12px;
 }
