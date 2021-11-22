@@ -42,7 +42,7 @@ class MembersController extends AbstractController
         }
         
         return $this->renderForm('sign_up.html.twig', [
-            'title' => 'Sign Up | Nubai',
+            'title' => 'Sign Up',
             'form' => $form,
         ]);
     }

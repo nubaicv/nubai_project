@@ -15,6 +15,12 @@
             {% endfor %}
             <h1>{{ title }}</h1>
             <hr>
+            {{ form(form) }}
+            <ul>
+                {% for product in products %}
+                    <li><a href="{{ path('product_show', {name: product.name}) }}">{{ product.name }}</a></li>
+                {% endfor %}
+            </ul>
         </main>
     </div>
 {% endblock %}

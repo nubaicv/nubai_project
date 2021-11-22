@@ -4,63 +4,52 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 use App\Entity\Products;
 use App\Repository\ProductsRepository;
-use App\Entity\SubFamilies;
-use App\Repository\SubFamiliesRepository;
-use App\Entity\Families;
-use App\Repository\FamiliesRepository;
+use App\Form\ProductsType;
 
 class ProductsController extends AbstractController
 {
     #[Route('/products', name: 'products')]
-    public function index(ValidatorInterface $validator, ProductsRepository $pr): Response
+    public function index(
+            Request $request,
+            ProductsRepository $pr): Response
     {
         
-//        $em = $this->getDoctrine()->getManager();
-//        
-//        $family = new Families();
-//        $family->setName('Equipamentos informaticos');
-//        $em->persist($family);
-//        
-//        $sub_family = new SubFamilies();
-//        $sub_family->setName('Acessorios');
-//        $sub_family->setFamily($family);
-//        $em->persist($sub_family);
-//        
-//        $product = new Products();
-//        $product->setCode('PCODE002');
-//        $product->setName('Labtop HP Inspiron');
-//        $product->setDescription('The best laptop in the market');
-//        $product->setPrice('45000');
-//        $product->setSubfamily($sub_family);
-//        
-//        $errors = $validator->validate($product);
-//        if (count($errors) > 0) {
-//            
-//            return new Response((string) $errors, 400);
-//        }
-//        
-//        $em->persist($product);
-//        $em->flush();
+        $products = $pr->findAll();
         
-        return $this->render('product_list.html.twig', [
+        $product = new Products();
+        $form = $this->createForm(ProductsType::class, $product);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            
+            return $this->redirectToRoute('products');
+        }
+        
+        return $this->renderForm('product_list.html.twig', [
             'controller_name' => 'ProductsController',
             'title' => 'Lista dos produtos',
+            'products' => $products,
+            'form' => $form,
         ]);
     }
     
-    #[Route('/product/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
-    public function product_show(int $id, ProductsRepository $pr) {
+    #[Route('/product/{name}', name: 'product_show')]
+    public function product_show(string $name, ProductsRepository $pr) {
         
-        $product = $pr->find($id);
+        $product = $pr->findOneBy(['name' => $name]);
         
         if (!$product) {
             throw $this->createNotFoundException(
-                'No product found for id '.$id
+                'Product ' . $name . ' not found'
             );
         }
         

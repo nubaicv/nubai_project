@@ -38,6 +38,7 @@ nav.main-nav ul li {
 
 nav.main-nav ul li a {
     padding: 12px;
+    text-decoration: none;
 }
 
 a.logo {

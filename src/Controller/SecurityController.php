@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('sign_in.html.twig', [
-            'title' => 'Sign in | Nubai',
+            'title' => 'Sign in',
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
