@@ -38,7 +38,7 @@ class Products
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=2000, nullable=true)
      */
     private $description;
 
@@ -53,7 +53,7 @@ class Products
     private $availability;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SubFamilies::class, inversedBy="products", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=SubFamilies::class, inversedBy="products")
      */
     private $subfamily;
     

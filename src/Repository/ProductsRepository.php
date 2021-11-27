@@ -18,6 +18,12 @@ class ProductsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Products::class);
     }
+    
+    public function getProductsList() {
+        
+        $query = $this->getEntityManager()->createQuery('SELECT p, s FROM App:Products p INNER JOIN p.subfamily s');
+        return $query->getResult();
+    }
 
     // /**
     //  * @return Products[] Returns an array of Products objects

@@ -21,6 +21,9 @@
                     <li><a href="{{ path('product_show', {name: product.name}) }}">{{ product.name }}</a></li>
                 {% endfor %}
             </ul>
+                
+                {{ dump(products) }}
+                {{ dump(products_filtered) }}
         </main>
     </div>
 {% endblock %}

@@ -20,6 +20,7 @@ class ProductsController extends AbstractController
     {
         
         $products = $pr->findAll();
+        $products_filtered = $pr->getProductsList();
         
         $product = new Products();
         $form = $this->createForm(ProductsType::class, $product);
@@ -38,6 +39,7 @@ class ProductsController extends AbstractController
             'controller_name' => 'ProductsController',
             'title' => 'Lista dos produtos',
             'products' => $products,
+            'products_filtered' => $products_filtered,
             'form' => $form,
         ]);
     }
