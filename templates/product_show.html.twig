@@ -6,21 +6,16 @@
     {{ product.name }}
 {% endblock %}
 
-
-{% block body %}
-    <div class="center">
-        <main>
-            {% for message in app.flashes('success') %}
-                <div>{{ message }}</div>
-            {% endfor %}
-            <h1>{{ product.name }}</h1>
-            <hr>
-            <ul>
-                <li>C&#243;digo: {{ product.code }}</li>
-                <li>Pre&#231;o: {{ product.price }}</li>
-                <li>Descri&#231;&#227;o: {{ product.description }}</li>
-                <li>Subfamilia: {{ product.subfamily.name }}</li>
-            </ul>
-        </main>
-    </div>
+{% block main %}
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    <h1>{{ product.name }}</h1>
+    <hr>
+    <ul>
+        <li>C&#243;digo: {{ product.code }}</li>
+        <li>Pre&#231;o: {{ product.price }}</li>
+        <li>Descri&#231;&#227;o: {{ product.description }}</li>
+        <li>Subfamilia: {{ product.subfamily.name }}</li>
+    </ul>
 {% endblock %}

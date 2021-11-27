@@ -6,13 +6,9 @@
     {{ title }}
 {% endblock %}
 
-{% block body %}
-    <div class="center">
-        <main>
-            {% for message in app.flashes('success') %}
-                <div>{{ message }}</div>
-            {% endfor %}
-            <h1>home page</h1>
-        </main>
-    </div>
-{% endblock body %}
+{% block main %}
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    <h1>home page</h1>
+{% endblock %}

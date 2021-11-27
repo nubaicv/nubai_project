@@ -6,24 +6,19 @@
     {{ title }}
 {% endblock %}
 
-
-{% block body %}
-    <div class="center">
-        <main>
-            {% for message in app.flashes('success') %}
-                <div>{{ message }}</div>
+{% block main %}
+    {% for message in app.flashes('success') %}
+        <div>{{ message }}</div>
+    {% endfor %}
+    <h1>{{ title }}</h1>
+    <hr>
+    {{ form(form) }}
+    <ul>
+        {% for product in products %}
+            <li><a href="{{ path('product_show', {name: product.name}) }}">{{ product.name }}</a></li>
             {% endfor %}
-            <h1>{{ title }}</h1>
-            <hr>
-            {{ form(form) }}
-            <ul>
-                {% for product in products %}
-                    <li><a href="{{ path('product_show', {name: product.name}) }}">{{ product.name }}</a></li>
-                {% endfor %}
-            </ul>
-                
-                {{ dump(products) }}
-                {{ dump(products_filtered) }}
-        </main>
-    </div>
+    </ul>
+
+    {{ dump(products) }}
+    {{ dump(products_filtered) }}
 {% endblock %}
