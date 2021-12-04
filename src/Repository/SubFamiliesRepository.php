@@ -18,6 +18,12 @@ class SubFamiliesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, SubFamilies::class);
     }
+    
+    public function getSubfamiliesList() {
+        
+        $query = $this->getEntityManager()->createQuery('SELECT s, f FROM App:SubFamilies s INNER JOIN s.family f');
+        return $query->getResult();
+    }
 
     // /**
     //  * @return SubFamilies[] Returns an array of SubFamilies objects

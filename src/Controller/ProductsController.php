@@ -19,8 +19,7 @@ class ProductsController extends AbstractController
             ProductsRepository $pr): Response
     {
         
-        $products = $pr->findAll();
-        $products_filtered = $pr->getProductsList();
+        $products = $pr->findBy([], ['id' => 'DESC']);
         
         $product = new Products();
         $form = $this->createForm(ProductsType::class, $product);
@@ -35,12 +34,14 @@ class ProductsController extends AbstractController
             return $this->redirectToRoute('products');
         }
         
+        $user = $this->getUser();
+        
         return $this->renderForm('product_list.html.twig', [
             'controller_name' => 'ProductsController',
-            'title' => 'Lista dos produtos',
+            'title' => 'lista dos produtos',
             'products' => $products,
-            'products_filtered' => $products_filtered,
             'form' => $form,
+            'user' => $user,
         ]);
     }
     
@@ -55,8 +56,13 @@ class ProductsController extends AbstractController
             );
         }
         
+        $subfamily = $product->getSubfamily();
+        $family = $subfamily->getFamily();
+        
         return $this->render('product_show.html.twig', [
             'product' => $product,
+            'subfamily' => $subfamily,
+            'family' => $family,
         ]);
     }
 }

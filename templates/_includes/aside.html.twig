@@ -4,5 +4,6 @@
     <div>Aside</div>
     {% if app.user == true %}
         <p><strong>Logged in as:</strong> {{ app.user.username }}</p>
+        {{ dump(app.user) }}
     {% endif %}
 </aside>

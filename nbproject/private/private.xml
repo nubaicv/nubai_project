@@ -4,6 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/ricardo/NetBeansProjects/nubai_project/src/Repository/ProductsRepository.php</file>
+            <file>file:/home/ricardo/NetBeansProjects/nubai_project/templates/product_show.html.twig</file>
             <file>file:/home/ricardo/NetBeansProjects/nubai_project/src/Controller/ProductsController.php</file>
             <file>file:/home/ricardo/NetBeansProjects/nubai_project/templates/product_list.html.twig</file>
         </group>
