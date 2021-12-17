@@ -13,11 +13,41 @@
     <h1>{{ title }}</h1>
     <hr>
     {{ form(form) }}
-    <ul>
+    {# <ul>
         {% for product in products %}
             <li><a href="{{ path('product_show', {name: product.name}) }}">{{ product.name }}</a></li>
             {% endfor %}
     </ul>
 
-    {{ dump(products) }}
+    {{ dump(products) }} #}
+
+    {# total items count #}
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+    <table>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+            <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}
+            </th>
+            <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}
+            </th>
+        </tr>
+
+        {# table body #}
+        {% for article in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ article.name }}</td>
+                {# <td>{{ article.title }}</td>
+                <td>{{ article.date | date('Y-m-d') }}, {{ article.time | date('H:i:s') }}</td> #}
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

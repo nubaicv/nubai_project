@@ -21,8 +21,8 @@ class ProductsRepository extends ServiceEntityRepository
     
     public function getProductsList() {
         
-        $query = $this->getEntityManager()->createQuery('SELECT p, s FROM App:Products p INNER JOIN p.subfamily s');
-        return $query->getResult();
+        $query = $this->getEntityManager()->createQuery('SELECT p.name FROM App:Products p ORDER BY p.id DESC');
+        return $query;
     }
 
     // /**
